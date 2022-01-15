@@ -1,7 +1,5 @@
 // 載入 express
 const express = require('express')
-
-
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
@@ -10,9 +8,6 @@ const router = require('./routes')
 require('./config/mongoose')
 
 const app = express()
-
-
-
 
 
 // hbs 設定
