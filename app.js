@@ -2,6 +2,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+const exphbs = require('express-handlebars')
+
 const app = express()
 
 // 設定連線mongodb
@@ -18,11 +20,14 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// hbs 設定
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 
 // 設定路由
 app.get('/', (req, res) => {
-  res.send('HI')
+  res.render('index')
 })
 
 // 設定port
