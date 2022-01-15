@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
 const Record = require('./models/record')
+const record = require('./models/record')
 
 
 const app = express()
@@ -75,6 +76,15 @@ app.post('/expenses/:id/edit', (req, res) => {
       record.amount = amount
       return record.save()
     })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// 刪除
+app.post('/expenses/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
