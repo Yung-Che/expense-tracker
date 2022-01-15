@@ -1,0 +1,15 @@
+<div class="container">
+  <form action="/expenses/{{ record._id }}/edit" method="POST">
+  <div class="mb-3">
+    <input type="text" placeholder="name" name="name" value="{{ record.name }}">
+  </div>
+  <div class="mb-3">
+    <input type="text" placeholder="date" name="date" value="{{ record.date }}">
+  </div>
+  <div class="mb-3">
+    <input type="text" placeholder="amount" name="amount" value="{{ record.amount }}">
+  </div>
+    <button type="submit">送出</button>
+    <a href="/">back</a>
+  </form>
+</div>

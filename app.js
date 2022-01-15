@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 
 const Record = require('./models/record')
 
+
 const app = express()
 
 // 設定連線mongodb
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//新增
+// 新增
 app.get('/expenses/new', (req, res) => {
   return res.render('new')
 })
@@ -49,6 +50,31 @@ app.post('/expenses', (req, res) => {
   const amount = req.body.amount
 
   return Record.create({ name, date, amount })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// 修改
+app.get('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then((record) => res.render('edit', { record }))
+    .catch(error => console.log(error))
+})
+
+app.post('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const date = req.body.date
+  const amount = req.body.amount
+  return Record.findById(id)
+    .then(record => {
+      record.name = name,
+      record.date = date,
+      record.amount = amount
+      return record.save()
+    })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
