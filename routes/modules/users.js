@@ -33,21 +33,10 @@ router.post('/register', (req, res) => {
       confirmPassword
     })
   }
-  return bcrypt
-    .genSalt(10)
-    .then(salt => bcrypt.hash(password, salt))
-    .then(hash => User.create({
-      name,
-      email,
-      password: hash
-    }))
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
 
   User.findOne({ email }).then(user => {
     if (user) {
       errors.push({ message: '這個 Email 已經註冊過了。' })
-      console.log('User already exists.')
       return res.render('register', {
         errors,
         name,
@@ -56,13 +45,16 @@ router.post('/register', (req, res) => {
         confirmPassword
       })
     }
-    return User.create({
-      name,
-      email,
-      password
-    })
+    return bcrypt
+      .genSalt(10)
+      .then(salt => bcrypt.hash(password, salt))
+      .then(hash => User.create({
+        name,
+        email,
+        password: hash
+      }))
       .then(() => res.redirect('/'))
-      .catch(error => console.log(error))
+      .catch(err => console.log(err))
   })
 })
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-
+const MONGODB_URI = process.env.MONGODB_URI
 // 設定連線mongodb
-mongoose.connect('mongodb://localhost/expense-tracker')
+mongoose.connect(MONGODB_URI)
 
 const db = mongoose.connection
 // 連線異常
