@@ -6,9 +6,9 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
-const Record = require('./models/record')
 
-
+const routes = require('./routes')
+const router = require('./routes')
 const app = express()
 
 // 設定連線mongodb
@@ -31,65 +31,12 @@ app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(router)
 
 
-// 設定路由
-app.get('/', (req, res) => {
-  Record.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(records => res.render('index', { records }))
-    .catch(error => console.log(error))
-})
 
-// 新增
-app.get('/expenses/new', (req, res) => {
-  return res.render('new')
-})
 
-app.post('/expenses', (req, res) => {
-  const name = req.body.name
-  const date = req.body.date
-  const amount = req.body.amount
 
-  return Record.create({ name, date, amount })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 修改
-app.get('/expenses/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .lean()
-    .then((record) => res.render('edit', { record }))
-    .catch(error => console.log(error))
-})
-
-app.put('/expenses/:id', (req, res) => {
-  const id = req.params.id
-  const name = req.body.name
-  const date = req.body.date
-  const amount = req.body.amount
-  return Record.findById(id)
-    .then(record => {
-      record.name = name,
-        record.date = date,
-        record.amount = amount
-      return record.save()
-    })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 刪除
-app.delete('/expenses/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .then(record => record.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
 
 // 設定port
 app.listen(3000, () => {
