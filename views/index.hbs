@@ -1,8 +1,10 @@
-<ul>
-  {{#each categories}}
-  {{this.name}}
+<label for="cars">Choose a car:</label>
+
+<select name="cars" id="cars">
+  {{#each category}}
+  <option value="{{this._id}}">{{this.name}}</option>
   {{/each}}
-</ul>
+</select>
 
 
 <ul>

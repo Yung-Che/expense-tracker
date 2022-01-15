@@ -5,16 +5,12 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 // 設定路由
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const category = await Category.find().lean()
   Record.find()
     .lean()
-    .populate('categoryId')
     .sort({ _id: 'asc' })
-    .then(records => {
-      Category.find()
-        .lean()
-        .then(categories => res.render('index', { records, categories }))
-    })
+    .then(records => res.render('index', { records, category }))
     .catch(error => console.log(error))
 })
 

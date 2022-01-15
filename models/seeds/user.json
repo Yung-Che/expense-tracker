@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "name": "廣志",
+      "email": "root@toot.com",
+      "password": "1234567",
+      "recordId": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "name": "美牙",
+      "email": "root2@toot.com",
+      "password": "7654321",
+      "recordId": [
+        4,
+        5
+      ]
+    }
+  ]
+}
