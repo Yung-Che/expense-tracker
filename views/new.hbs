@@ -1,0 +1,19 @@
+<div class="container">
+  <form action="/expenses" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">名稱*：<span class="text-danger"></span></label>
+      <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">日期*：<span class="text-danger"></span></label>
+      <input type="text" class="form-control" id="date" name="date" required />
+    </div>
+    <div class="mb-3">
+      <label for="amount" class="form-label">金額*：<span class="text-danger"></span></label>
+      <input type="text" class="form-control" id="amount" name="amount" required />
+    </div>
+    <button type="submit" class="btn btn-primary">
+      送出
+    </button>
+  </form>
+</div>
