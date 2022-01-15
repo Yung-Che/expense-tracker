@@ -6,8 +6,9 @@ const Category = require('../../models/category')
 
 // 設定路由
 router.get('/', async (req, res) => {
+  const userId = req.user._id
   const category = await Category.find().lean()
-  Record.find()
+  Record.find({ userId })
     .lean()
     .sort({ _id: 'asc' })
     .then(records => res.render('index', { records, category }))

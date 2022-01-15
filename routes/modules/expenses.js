@@ -10,36 +10,39 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const name = req.body.name
   const date = req.body.date
   const amount = req.body.amount
   const categoryId = req.body.categoryId
 
-  return Record.create({ name, date, amount, categoryId })
+  return Record.create({ name, date, amount, categoryId, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 // 修改
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .lean()
     .then((record) => res.render('edit', { record }))
     .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const name = req.body.name
   const date = req.body.date
   const amount = req.body.amount
   const categoryId = req.body.categoryId
-  return Record.findById(id)
+  return Record.findOne({ _id, userId })
     .then(record => {
       record.name = name,
         record.date = date,
-        record.amount = amount, 
+        record.amount = amount,
         record.categoryId = categoryId
       return record.save()
     })
@@ -49,8 +52,9 @@ router.put('/:id', (req, res) => {
 
 // 刪除
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
