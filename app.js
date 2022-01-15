@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const Record = require('./models/record')
-const record = require('./models/record')
 
 
 const app = express()
@@ -30,13 +30,14 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 
 // 設定路由
 app.get('/', (req, res) => {
   Record.find()
     .lean()
-    .sort({ _id: 'asc'})
+    .sort({ _id: 'asc' })
     .then(records => res.render('index', { records }))
     .catch(error => console.log(error))
 })
@@ -65,7 +66,7 @@ app.get('/expenses/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/expenses/:id/edit', (req, res) => {
+app.put('/expenses/:id', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   const date = req.body.date
@@ -73,8 +74,8 @@ app.post('/expenses/:id/edit', (req, res) => {
   return Record.findById(id)
     .then(record => {
       record.name = name,
-      record.date = date,
-      record.amount = amount
+        record.date = date,
+        record.amount = amount
       return record.save()
     })
     .then(() => res.redirect('/'))
@@ -82,7 +83,7 @@ app.post('/expenses/:id/edit', (req, res) => {
 })
 
 // 刪除
-app.post('/expenses/:id/delete', (req, res) => {
+app.delete('/expenses/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(record => record.remove())
