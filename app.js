@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 
 const exphbs = require('express-handlebars')
 
+const Record = require('./models/record')
+
 const app = express()
 
 // 設定連線mongodb
@@ -27,7 +29,10 @@ app.set('view engine', 'hbs')
 
 // 設定路由
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find()
+    .lean()
+    .then(records => res.render('index', { records }))
+    .catch(error => console.log(error))
 })
 
 // 設定port
