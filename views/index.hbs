@@ -1,4 +1,11 @@
 <ul>
+  {{#each categories}}
+  {{this.name}}
+  {{/each}}
+</ul>
+
+
+<ul>
   {{#each records}}
   <div>{{this.name}}{{this.date}}{{this.amount}} </div>
   <a href="./expenses/{{this._id}}/edit">修改</a>

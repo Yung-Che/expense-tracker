@@ -12,6 +12,11 @@ const recordSchema = new Schema({
   date: {
     type: Date,
     required: true
+  },
+  categoryId: {
+    type: Schema.Types.ObjectId, 
+    ref: 'categories',
+    required: true
   }
 })
 

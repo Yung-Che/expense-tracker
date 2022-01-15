@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
+const Category = require('../../models/category')
 
 // 新增
 router.get('/new', (req, res) => {
@@ -12,8 +13,9 @@ router.post('/', (req, res) => {
   const name = req.body.name
   const date = req.body.date
   const amount = req.body.amount
+  const categoryId = req.body.categoryId
 
-  return Record.create({ name, date, amount })
+  return Record.create({ name, date, amount, categoryId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
@@ -32,11 +34,13 @@ router.put('/:id', (req, res) => {
   const name = req.body.name
   const date = req.body.date
   const amount = req.body.amount
+  const categoryId = req.body.categoryId
   return Record.findById(id)
     .then(record => {
       record.name = name,
         record.date = date,
-        record.amount = amount
+        record.amount = amount, 
+        record.categoryId = categoryId
       return record.save()
     })
     .then(() => res.redirect('/'))
