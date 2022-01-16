@@ -1,5 +1,7 @@
 # expense-tracker
 使用 Node.js + Express 打造的家庭記帳本，方便使用者管理個人日常支出。能夠登入系統，確保個人隱私。可以對自己建立的支出紀錄進行瀏覽、新增、修改、刪除，也可以分類來查看收支狀況。
+![image](https://github.com/Yung-Che/expense-tracker/blob/main/public/image/login.png)
+![image](https://github.com/Yung-Che/expense-tracker/blob/main/public/image/index.png)
 
 ## 產品功能
 ### 紀錄系統
