@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+
 const PORT = process.env.PORT
 
 const router = require('./routes')
@@ -18,11 +19,11 @@ const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 
-
-
 // hbs 設定
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(express.static("public"))
+
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -32,6 +33,8 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+
 
 usePassport(app)
 
