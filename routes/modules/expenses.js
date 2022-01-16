@@ -4,6 +4,7 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 const record = require('../../models/record')
+const moment = require('moment')
 
 // 新增
 router.get('/new', async (req, res) => {
@@ -30,7 +31,11 @@ router.get('/:id/edit', async (req, res) => {
   const _id = req.params.id
   return Record.findOne({ _id, userId })
     .lean()
-    .then((record) => res.render('edit', { record, category }))
+    .then((record) => {
+      record.date = moment(record.date).format('YYYY-MM-DD');
+      category.find(item => (item._id).equals(record.categoryId)).selected = true
+      res.render('edit', { record, category })
+    })
     .catch(error => console.log(error))
 })
 
