@@ -4,9 +4,19 @@ const User = require('../user')
 const users = require('./user.json').results
 const records = require('./record.json').results
 const categories = require('./category.json').results
+
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+
 const db = require('../../config/mongoose')
 const { use } = require('passport')
 const bcrypt = require('bcryptjs')
+
+
+
 
 db.once('open', async () => {
   const category = await Category.find().lean()
