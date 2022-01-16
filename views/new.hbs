@@ -22,6 +22,7 @@
       <label for="category" class="col-sm-3 col-form-label">類別*：</label>
       <div class="col-sm-9">
         <select class="form-control" id="categoryId" name="categoryId" required>
+          <option value="" disabled selected>類別</option>
           {{#each category}}
           <option value="{{ this._id }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
           {{/each}}
