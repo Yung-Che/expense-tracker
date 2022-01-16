@@ -3,10 +3,12 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const record = require('../../models/record')
 
 // 新增
-router.get('/new', (req, res) => {
-  return res.render('new')
+router.get('/new', async (req, res) => {
+  const category = await Category.find().lean()
+  return res.render('new', { category })
 })
 
 router.post('/', (req, res) => {
@@ -22,12 +24,13 @@ router.post('/', (req, res) => {
 })
 
 // 修改
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async (req, res) => {
+  const category = await Category.find().lean()
   const userId = req.user._id
   const _id = req.params.id
   return Record.findOne({ _id, userId })
     .lean()
-    .then((record) => res.render('edit', { record }))
+    .then((record) => res.render('edit', { record, category }))
     .catch(error => console.log(error))
 })
 

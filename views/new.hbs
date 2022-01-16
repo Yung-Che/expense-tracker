@@ -1,4 +1,55 @@
 <div class="container">
+  <div class="row align-items-center mb-2">
+    <small class="col-sm-3"><span class="required-mark">*</span>必填欄位</small>
+    <div class="col-sm-6 text-center">
+      <h4>請輸入你的支出</h4>
+    </div>
+  </div>
+  <form action="/expenses" method="POST">
+    <div class="form-group row">
+      <label for="name" class="col-sm-3 col-form-label">名稱*：</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="name" name="name" maxlength="50" value="{{record.name}}" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="date" class="col-sm-3 col-form-label">日期*：</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" id="date" name="date" value="{{record.date}}" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="category" class="col-sm-3 col-form-label">類別*：</label>
+      <div class="col-sm-9">
+        <select class="form-control" id="categoryId" name="categoryId" required>
+          {{#each category}}
+          <option value="{{ this._id }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="amount" class="col-sm-3 col-form-label">金額*：</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" id="amount" name="amount" min="1" value="{{record.amount}}" required>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center m-5">
+      <button type="submit" class="btn btn-major px-5 btn-submit" style="border: black solid; 
+      background-color: #FFFFFF; color:#000000; font-weight:bold">新增支出</button>
+    </div>
+  </form>
+</div>
+
+{{!-- <div class="d-flex justify-content-center m-5">
+  <a class="btn btn-major px-5" style="border: black solid; 
+      background-color: #FF8000; color: #FFFFFF; font-weight:bold" href="./expenses/new">新增支出</a>
+</div> --}}
+
+
+
+
+{{!-- <div class="container">
   <form action="/expenses" method="POST">
     <div class="mb-3">
       <label for="name" class="form-label">名稱*：<span class="text-danger"></span></label>
@@ -9,6 +60,14 @@
       <input type="text" class="form-control" id="date" name="date" required />
     </div>
     <div class="mb-3">
+      <select name="categoryId" id="categoryId">
+        <option value="" disabled selected>類別</option>
+        {{#each category}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="mb-3">
       <label for="amount" class="form-label">金額*：<span class="text-danger"></span></label>
       <input type="text" class="form-control" id="amount" name="amount" required />
     </div>
@@ -16,4 +75,4 @@
       送出
     </button>
   </form>
-</div>
+</div> --}}

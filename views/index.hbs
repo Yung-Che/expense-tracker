@@ -1,19 +1,83 @@
-<label for="cars">Choose a car:</label>
-
-<select name="cars" id="cars">
-  {{#each category}}
-  <option value="{{this._id}}">{{this.name}}</option>
-  {{/each}}
-</select>
-
-<ul>
+<div class="col-lg-8 mx-auto">
+  <div class="row my-3">
+    <div class="col-sm-9 d-flex justify-content-center m-5">
+      <select class="form-control" id="categoryId" name="categoryId" required>
+        <option value="" disabled selected>類別</option>
+        {{#each category}}
+        <option value="{{ this._id }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="row my-3">
+    <label for="totalAmount" class="col-3 text-end">總金額：</label>
+  </div>
+  <div class="col-5" style="font-size: 50px;color:#e3885b">{{totalAmount}}
+  </div>
+</div>
+<ul class="list-group">
   {{#each records}}
-  <div>{{this.name}}{{this.date}}{{this.amount}} </div>
-  <a href="./expenses/{{this._id}}/edit">修改</a>
-  <form action="./expenses/{{ this._id }}?_method=DELETE" method="post" style="display: inline;">
-    <button type="submit">刪除</button>
-  </form>
+  <li class="list-group-item" style="color:dimgray">
+    <div class="row">
+      <div class="col-2 my-auto text-center">
+        <i class="{{this.icon}} fa-2x" style="color:lightblue"></i>
+      </div>
+      <div class="col-4">
+        <div class="fs-5">
+          {{this.name}}
+        </div>
+        <div class="date">
+          {{this.date}}
+        </div>
+      </div>
+      <div class="col-2 my-auto text-end">
+        {{this.amount}} 元
+      </div>
+      <div class="col-4 my-auto text-center">
+        <a class="btn btn-light" href="./expenses/{{this._id}}/edit">修改</a>
+        <form action="./expenses/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"
+          onsubmit="return confirm('是否確定刪除 {{this.name}} ?');">
+          <button class="btn btn-light" type="submit">刪除</button>
+        </form>
+      </div>
+    </div>
+  </li>
   {{/each}}
 </ul>
+</div>
+<div class="d-flex justify-content-center m-5">
+  <a class="btn btn-major px-5" style="border: black solid; 
+      background-color: #FF8000; color: #FFFFFF; font-weight:bold" href="./expenses/new">新增支出</a>
+</div>
 
-<a href="./expenses/new">新增支出</a>
+
+{{!-- <div class="row">
+  <div class="col-md-6 m-auto">
+    <form action="/" method="POST" class="category-form">
+      <select class="form-select" aria-label="Default select example" name="categoryId" id="categoryId"
+        style="width:30%;">
+        {{#each category}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </form>
+
+    <p class="h1">統計金額：{{totalAmount}}元</p>
+
+    <div class="row justify-content-around">
+      <ul>
+        {{#each records}}
+        <div><i class="{{this.icon}}"></i>{{this.name}}{{this.date}}{{this.amount}} </div>
+        <a href="./expenses/{{this._id}}/edit">修改</a>
+        <form action="./expenses/{{ this._id }}?_method=DELETE" method="post" style="display: inline;">
+          <button type="submit">刪除</button>
+        </form>
+        {{/each}}
+      </ul>
+    </div>
+
+
+    <a href="./expenses/new">新增支出</a>
+
+  </div>
+</div> --}}
