@@ -56,6 +56,6 @@ app.use(router)
 
 
 // 設定port
-app.listen(process.env.PORT, () => {
-  console.log(`App is running on http://localhost:${process.env.PORT}`)
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`)
 })

@@ -53,33 +53,3 @@
 </div>
 
 <script src="/javascripts/form.js"></script>
-{{!-- <div class="row">
-  <div class="col-md-6 m-auto">
-    <form action="/" method="POST" class="category-form">
-      <select class="form-select" aria-label="Default select example" name="categoryId" id="categoryId"
-        style="width:30%;">
-        {{#each category}}
-        <option value="{{this._id}}">{{this.name}}</option>
-        {{/each}}
-      </select>
-    </form>
-
-    <p class="h1">統計金額：{{totalAmount}}元</p>
-
-    <div class="row justify-content-around">
-      <ul>
-        {{#each records}}
-        <div><i class="{{this.icon}}"></i>{{this.name}}{{this.date}}{{this.amount}} </div>
-        <a href="./expenses/{{this._id}}/edit">修改</a>
-        <form action="./expenses/{{ this._id }}?_method=DELETE" method="post" style="display: inline;">
-          <button type="submit">刪除</button>
-        </form>
-        {{/each}}
-      </ul>
-    </div>
-
-
-    <a href="./expenses/new">新增支出</a>
-
-  </div>
-</div> --}}
